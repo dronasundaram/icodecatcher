@@ -1,0 +1,9 @@
+/backend/node_modules
+/frontend/node_modules
+/backend/uploads
+/backend/build
+/frontend/build
+.DS_Store
+.env*
+npm-debug.log*
+yarn-debug.log*

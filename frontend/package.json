@@ -1,0 +1,38 @@
+{
+  "name": "uicoder-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "homepage": "https://icodecatcher.vercel.app",
+  "dependencies": {
+    "axios": "^1.5.0",
+    "css-tree": "^3.1.0",
+    "htmlparser2": "^10.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.12",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.3.2"
+  },
+  "scripts": {
+    "start": "react-scripts start"
+  },
+  "main": "tailwind.config.js",
+  "author": "Sundar",
+  "license": "ISC",
+  "description": "Code review tool for web developers",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
