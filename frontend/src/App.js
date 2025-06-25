@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { parseDocument } from "htmlparser2";
 import * as csstree from "css-tree";
+import Editor from "@monaco-editor/react";
 
 function App() {
   const [htmlCode, setHtmlCode] = useState("");
@@ -76,7 +77,6 @@ function App() {
     return issues;
   };
 
-  // Simple function to estimate line number based on char position
   const findLineNumber = (index, content) => {
     if (index == null) return "Unknown";
     const lines = content.substring(0, index).split("\n");
@@ -96,7 +96,7 @@ function App() {
       if (node.type === "Declaration") {
         const value = csstree.generate(node.value);
 
-        if (value.includes("0px")) {
+        if (/\b0px\b/.test(value)) {
           issues.push({
             property: node.property,
             problem: "Use 0 instead of 0px",
@@ -137,24 +137,26 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <h1 className="text-3xl font-bold mb-6 text-center">
-        Icodecatcher (HTML & CSS Analyzer)
+        Icodecatcher (HTML & CSS)
       </h1>
 
       <div className="grid grid-cols-2 gap-6">
         <div>
           <h2 className="text-xl font-semibold mb-2">Paste HTML</h2>
-          <textarea
-            className="w-full h-64 p-2 border rounded"
+          <Editor
+            height="300px"
+            language="html"
             value={htmlCode}
-            onChange={(e) => setHtmlCode(e.target.value)}
-            placeholder="<html>...</html>"
+            onChange={(value) => setHtmlCode(value)}
+            theme="vs-light"
           />
           <h2 className="text-xl font-semibold mb-2 mt-4">Paste CSS</h2>
-          <textarea
-            className="w-full h-64 p-2 border rounded"
+          <Editor
+            height="300px"
+            language="css"
             value={cssCode}
-            onChange={(e) => setCssCode(e.target.value)}
-            placeholder="body { ... }"
+            onChange={(value) => setCssCode(value)}
+            theme="vs-light"
           />
           <button
             onClick={handleAnalyze}
@@ -191,7 +193,7 @@ function App() {
             <ul className="list-disc ml-5">
               {cssIssues.length === 0 && <li>No CSS issues found!</li>}
               {cssIssues.map((issue, idx) => (
-               <li key={idx}>
+                <li key={idx}>
                   Line {issue.line}:{" "}
                   <span className="text-red-600">
                     {issue.type} / {issue.problem}
